@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>ekf_vs_ukf</name>
+    <version>0.0.1</version>
+    <description>EKF vs UKF robot_localization</description>
+    <license>BSD</license>
+    <author email="arkajbasak1211@gmail.com">Arka</author>
+    <maintainer email="arkajbasak1211@gmail.com">Arka</maintainer>
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>robot_localization</depend>
+    <export>
+        <gazebo_ros gazebo_media_path="${prefix}"/>
+    </export>
+</package>

@@ -1,0 +1,22 @@
+<launch>
+    <!-- Rosbag play -->
+    <node pkg="rosbag" type="play" name="player" output="screen" args="$(find ekf_vs_ukf)/dataset/0042_odom.bag"/>
+    
+    <!-- Load params -->
+    <rosparam command="load" file="$(find ekf_vs_ukf)/config/ukf_navsat.yaml" />
+
+    <!-- Navsat transform node -->
+    <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" clear_params="true">
+        <remap from="/imu/data" to="kitti/oxts/imu"/>
+        <remap from="/gps/fix" to="kitti/oxts/gps/fix"/>
+    </node>
+
+    <!-- Ukf localization node -->
+    <node pkg="robot_localization" type="ukf_localization_node" name="ukf_se_map" clear_params="true"/>
+
+    <!-- Trajectory marker -->
+    <node pkg="ekf_vs_ukf" name="trajectory_marker" type="trajectory_marker.py" output="screen"/>
+
+    <!-- Rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ekf_vs_ukf)/config/display.rviz"/>
+</launch>
